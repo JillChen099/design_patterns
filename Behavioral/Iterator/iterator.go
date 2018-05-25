@@ -8,41 +8,39 @@ Content:
 */
 package iterator
 
+
 //抽象聚合类
 type AbstractObjectList interface {
 	addObject(obj string)
 	removeObject(obj string)
-	getObjects() map[int]string
+	getObjects() []string
 	createIterator() AbstractIterator
 }
 
 func NewProductList() *ProductList {
 	p := new(ProductList)
-	p.Index = 0
-	p.Objects = map[int]string{}
+	p.Objects = []string{}
 	return p
 }
 
 //具体聚合类
 type ProductList struct {
-	Objects map[int]string
-	Index   int
+	Objects []string
 }
 
 func (p *ProductList) addObject(obj string) {
-	p.Objects[p.Index] = obj
-	p.Index ++
+	p.Objects = append(p.Objects,obj)
 }
 
 func (p *ProductList)removeObject(obj string) {
 	for k,v := range p.Objects {
 		if v == obj {
-			delete(p.Objects,k)
+			p.Objects = append(p.Objects[:k],p.Objects[k+1:]...)
 		}
 	}
 }
 
-func (p *ProductList) getObjects() map[int]string {
+func (p *ProductList) getObjects() []string {
 	return p.Objects
 
 }
@@ -71,7 +69,7 @@ type AbstractIterator interface {
 
 //具体迭代器
 type ProductIterator struct {
-	products map[int]string
+	products []string
 	cursor1 int
 	cursor2 int
 }
