@@ -3,7 +3,10 @@ Created on 2018/5/28 11:43
 
 author: ChenJinLong
 
-Content: 
+Content:
+客户端不想或不能直接访问一个对象，
+此时可以通过一个称之为“代理”的第三者来实现间接访问，
+该方案对应的设计模式被称为代理模式。
 */
 package proxy
 
